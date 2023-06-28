@@ -1,0 +1,29 @@
+spring:
+    jackson:
+         default-property-inclusion: non_null
+
+    datasource:
+        url: jdbc:mysql://${DATABASE_URL:localhost}:3306/twitch?createDatabaseIfNotExist=true
+        username: ${DATABASE_USERNAME:root}
+        password: ${DATABASE_PASSWORD:secret}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+    sql:
+        init:
+             mode: ${INIT_DB:always}
+             schema-locations: "classpath:database-init.sql"
+
+    cache:
+        caffeine:
+            spec: expireAfterWrite=1m
+
+
+logging:
+    level:
+        org.apache.coyote.http11.Http11InputBuffer: DEBUG #%20Incoming%20HTTP%20requests
+        org.springframework.web.reactive.function.client.ExchangeFunctions: TRACE #%20Outgoing%20http%20requests
+        org.springframework.jdbc.core: DEBUG  # SQL
+
+twitch:
+    client-id: mn0fdbtsb74w9hrs6z2zvyessip23e
+    secret: y8wn8d22amm6eio9nar0wj8qbr911a
